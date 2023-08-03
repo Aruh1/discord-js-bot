@@ -49,8 +49,8 @@
     "node-fetch": "^2.6.12",
     "os": "^0.1.2",
     "pino": "^8.14.1",
-    "pino-pretty": "^10.2.0",
-    "pretty-ms": "^8.0.0",
+    "pino-pretty": "^10.0.1",
+    "pretty-ms": "^7.0.1",
     "snakecord": "^1.0.9",
     "sourcebin_js": "^0.0.3-ignore",
     "string-progressbar": "^1.0.4",
@@ -65,9 +65,9 @@
     "zlib-sync": "^0.1.8"
   },
   "devDependencies": {
-    "eslint": "^8.46.0",
-    "eslint-plugin-jsdoc": "^46.4.5",
-    "node": "^20.5.0",
+    "eslint": "^8.45.0",
+    "eslint-plugin-jsdoc": "^46.4.3",
+    "node": "^20.4.0",
     "nodemon": "^3.0.1",
     "prettier": "3.0.0"
   },
