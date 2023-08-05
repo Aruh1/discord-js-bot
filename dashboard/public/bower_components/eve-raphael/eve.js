@@ -1,11 +1,11 @@
 // Copyright (c) 2013 Adobe Systems Incorporated. All rights reserved.
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 // http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@
         },
         current_event,
         stop,
-        events = {n: {}},
+        events = { n: {} },
         firstDefined = function () {
             for (var i = 0, ii = this.length; i < ii; i++) {
                 if (typeof this[i] != "undefined") {
@@ -47,9 +47,11 @@
         },
         objtos = Object.prototype.toString,
         Str = String,
-        isArray = Array.isArray || function (ar) {
-            return ar instanceof Array || objtos.call(ar) == "[object Array]";
-        };
+        isArray =
+            Array.isArray ||
+            function (ar) {
+                return ar instanceof Array || objtos.call(ar) == "[object Array]";
+            };
     /*\
      * eve
      [ method ]
@@ -64,70 +66,71 @@
 
      = (object) array of returned values from the listeners. Array has two methods `.firstDefined()` and `.lastDefined()` to get first or last not `undefined` value.
     \*/
-        eve = function (name, scope) {
-            var e = events,
-                oldstop = stop,
-                args = Array.prototype.slice.call(arguments, 2),
-                listeners = eve.listeners(name),
-                z = 0,
-                f = false,
-                l,
-                indexed = [],
-                queue = {},
-                out = [],
-                ce = current_event,
-                errors = [];
-            out.firstDefined = firstDefined;
-            out.lastDefined = lastDefined;
-            current_event = name;
-            stop = 0;
-            for (var i = 0, ii = listeners.length; i < ii; i++) if ("zIndex" in listeners[i]) {
+    eve = function (name, scope) {
+        var e = events,
+            oldstop = stop,
+            args = Array.prototype.slice.call(arguments, 2),
+            listeners = eve.listeners(name),
+            z = 0,
+            f = false,
+            l,
+            indexed = [],
+            queue = {},
+            out = [],
+            ce = current_event,
+            errors = [];
+        out.firstDefined = firstDefined;
+        out.lastDefined = lastDefined;
+        current_event = name;
+        stop = 0;
+        for (var i = 0, ii = listeners.length; i < ii; i++)
+            if ("zIndex" in listeners[i]) {
                 indexed.push(listeners[i].zIndex);
                 if (listeners[i].zIndex < 0) {
                     queue[listeners[i].zIndex] = listeners[i];
                 }
             }
-            indexed.sort(numsort);
-            while (indexed[z] < 0) {
-                l = queue[indexed[z++]];
-                out.push(l.apply(scope, args));
-                if (stop) {
-                    stop = oldstop;
-                    return out;
-                }
+        indexed.sort(numsort);
+        while (indexed[z] < 0) {
+            l = queue[indexed[z++]];
+            out.push(l.apply(scope, args));
+            if (stop) {
+                stop = oldstop;
+                return out;
             }
-            for (i = 0; i < ii; i++) {
-                l = listeners[i];
-                if ("zIndex" in l) {
-                    if (l.zIndex == indexed[z]) {
-                        out.push(l.apply(scope, args));
-                        if (stop) {
-                            break;
-                        }
-                        do {
-                            z++;
-                            l = queue[indexed[z]];
-                            l && out.push(l.apply(scope, args));
-                            if (stop) {
-                                break;
-                            }
-                        } while (l)
-                    } else {
-                        queue[l.zIndex] = l;
-                    }
-                } else {
+        }
+        for (i = 0; i < ii; i++) {
+            l = listeners[i];
+            if ("zIndex" in l) {
+                if (l.zIndex == indexed[z]) {
                     out.push(l.apply(scope, args));
                     if (stop) {
                         break;
                     }
+                    do {
+                        z++;
+                        l = queue[indexed[z]];
+                        l && out.push(l.apply(scope, args));
+                        if (stop) {
+                            break;
+                        }
+                    } while (l);
+                } else {
+                    queue[l.zIndex] = l;
+                }
+            } else {
+                out.push(l.apply(scope, args));
+                if (stop) {
+                    break;
                 }
             }
-            stop = oldstop;
-            current_event = ce;
-            return out;
-        };
-        // Undocumented. Debug only.
-        eve._events = events;
+        }
+        stop = oldstop;
+        current_event = ce;
+        return out;
+    };
+    // Undocumented. Debug only.
+    eve._events = events;
     /*\
      * eve.listeners
      [ method ]
@@ -227,15 +230,16 @@
                     exist;
                 for (var i = 0, ii = names.length; i < ii; i++) {
                     e = e.n;
-                    e = e.hasOwnProperty(names[i]) && e[names[i]] || (e[names[i]] = {n: {}});
+                    e = (e.hasOwnProperty(names[i]) && e[names[i]]) || (e[names[i]] = { n: {} });
                 }
                 e.f = e.f || [];
-                for (i = 0, ii = e.f.length; i < ii; i++) if (e.f[i] == f) {
-                    exist = true;
-                    break;
-                }
+                for (i = 0, ii = e.f.length; i < ii; i++)
+                    if (e.f[i] == f) {
+                        exist = true;
+                        break;
+                    }
                 !exist && e.f.push(f);
-            }(names[i]));
+            })(names[i]);
         }
         return function (zIndex) {
             if (+zIndex == +zIndex) {
@@ -327,7 +331,7 @@
     \*/
     eve.off = eve.unbind = function (name, f) {
         if (!name) {
-            eve._events = events = {n: {}};
+            eve._events = events = { n: {} };
             return;
         }
         var names = isArray(name) ? (isArray(name[0]) ? name : [name]) : Str(name).split(comaseparator);
@@ -341,7 +345,10 @@
         var e,
             key,
             splice,
-            i, ii, j, jj,
+            i,
+            ii,
+            j,
+            jj,
             cur = [events];
         for (i = 0, ii = names.length; i < ii; i++) {
             for (j = 0; j < cur.length; j += splice.length - 2) {
@@ -352,9 +359,10 @@
                         splice.push(e[names[i]]);
                     }
                 } else {
-                    for (key in e) if (e[has](key)) {
-                        splice.push(e[key]);
-                    }
+                    for (key in e)
+                        if (e[has](key)) {
+                            splice.push(e[key]);
+                        }
                 }
                 cur.splice.apply(cur, splice);
             }
@@ -364,25 +372,29 @@
             while (e.n) {
                 if (f) {
                     if (e.f) {
-                        for (j = 0, jj = e.f.length; j < jj; j++) if (e.f[j] == f) {
-                            e.f.splice(j, 1);
-                            break;
-                        }
+                        for (j = 0, jj = e.f.length; j < jj; j++)
+                            if (e.f[j] == f) {
+                                e.f.splice(j, 1);
+                                break;
+                            }
                         !e.f.length && delete e.f;
                     }
-                    for (key in e.n) if (e.n[has](key) && e.n[key].f) {
-                        var funcs = e.n[key].f;
-                        for (j = 0, jj = funcs.length; j < jj; j++) if (funcs[j] == f) {
-                            funcs.splice(j, 1);
-                            break;
+                    for (key in e.n)
+                        if (e.n[has](key) && e.n[key].f) {
+                            var funcs = e.n[key].f;
+                            for (j = 0, jj = funcs.length; j < jj; j++)
+                                if (funcs[j] == f) {
+                                    funcs.splice(j, 1);
+                                    break;
+                                }
+                            !funcs.length && delete e.n[key].f;
                         }
-                        !funcs.length && delete e.n[key].f;
-                    }
                 } else {
                     delete e.f;
-                    for (key in e.n) if (e.n[has](key) && e.n[key].f) {
-                        delete e.n[key].f;
-                    }
+                    for (key in e.n)
+                        if (e.n[has](key) && e.n[key].f) {
+                            delete e.n[key].f;
+                        }
                 }
                 e = e.n;
             }
@@ -422,5 +434,11 @@
     eve.toString = function () {
         return "You are running Eve " + version;
     };
-    (typeof module != "undefined" && module.exports) ? (module.exports = eve) : (typeof define === "function" && define.amd ? (define("eve", [], function() { return eve; })) : (glob.eve = eve));
+    typeof module != "undefined" && module.exports
+        ? (module.exports = eve)
+        : typeof define === "function" && define.amd
+        ? define("eve", [], function () {
+              return eve;
+          })
+        : (glob.eve = eve);
 })(this);

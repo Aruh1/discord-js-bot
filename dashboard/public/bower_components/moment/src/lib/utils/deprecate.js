@@ -1,11 +1,10 @@
-import extend from './extend';
-import { hooks } from './hooks';
-import isUndefined from './is-undefined';
+import extend from "./extend";
+import { hooks } from "./hooks";
+import isUndefined from "./is-undefined";
 
 function warn(msg) {
-    if (hooks.suppressDeprecationWarnings === false &&
-            (typeof console !==  'undefined') && console.warn) {
-        console.warn('Deprecation warning: ' + msg);
+    if (hooks.suppressDeprecationWarnings === false && typeof console !== "undefined" && console.warn) {
+        console.warn("Deprecation warning: " + msg);
     }
 }
 
@@ -20,11 +19,11 @@ export function deprecate(msg, fn) {
             var args = [];
             var arg;
             for (var i = 0; i < arguments.length; i++) {
-                arg = '';
-                if (typeof arguments[i] === 'object') {
-                    arg += '\n[' + i + '] ';
+                arg = "";
+                if (typeof arguments[i] === "object") {
+                    arg += "\n[" + i + "] ";
                     for (var key in arguments[0]) {
-                        arg += key + ': ' + arguments[0][key] + ', ';
+                        arg += key + ": " + arguments[0][key] + ", ";
                     }
                     arg = arg.slice(0, -2); // Remove trailing comma and space
                 } else {
@@ -32,7 +31,7 @@ export function deprecate(msg, fn) {
                 }
                 args.push(arg);
             }
-            warn(msg + '\nArguments: ' + Array.prototype.slice.call(args).join('') + '\n' + (new Error()).stack);
+            warn(msg + "\nArguments: " + Array.prototype.slice.call(args).join("") + "\n" + new Error().stack);
             firstTime = false;
         }
         return fn.apply(this, arguments);

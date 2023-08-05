@@ -1,9 +1,6 @@
 {
     // Extra globals.
-    "predef" : [
-      "require",
-      "define"
-    ],
+    "predef": ["require", "define"],
     "jquery": true,
     "browser": true,
 

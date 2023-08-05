@@ -1,12 +1,12 @@
-import { configFromISO, configFromRFC2822 } from './from-string';
-import { configFromArray } from './from-array';
-import { getParseRegexForToken }   from '../parse/regex';
-import { addTimeToArrayFromToken } from '../parse/token';
-import { expandFormat, formatTokenFunctions, formattingTokens } from '../format/format';
-import checkOverflow from './check-overflow';
-import { HOUR } from '../units/constants';
-import { hooks } from '../utils/hooks';
-import getParsingFlags from './parsing-flags';
+import { configFromISO, configFromRFC2822 } from "./from-string";
+import { configFromArray } from "./from-array";
+import { getParseRegexForToken } from "../parse/regex";
+import { addTimeToArrayFromToken } from "../parse/token";
+import { expandFormat, formatTokenFunctions, formattingTokens } from "../format/format";
+import checkOverflow from "./check-overflow";
+import { HOUR } from "../units/constants";
+import { hooks } from "../utils/hooks";
+import getParsingFlags from "./parsing-flags";
 
 // constant that refers to the ISO standard
 hooks.ISO_8601 = function () {};
@@ -29,8 +29,12 @@ export function configFromStringAndFormat(config) {
     getParsingFlags(config).empty = true;
 
     // This array is used to make a Date, either with `new Date` or `Date.UTC`
-    var string = '' + config._i,
-        i, parsedInput, tokens, token, skipped,
+    var string = "" + config._i,
+        i,
+        parsedInput,
+        tokens,
+        token,
+        skipped,
         stringLength = string.length,
         totalParsedInputLength = 0;
 
@@ -53,13 +57,11 @@ export function configFromStringAndFormat(config) {
         if (formatTokenFunctions[token]) {
             if (parsedInput) {
                 getParsingFlags(config).empty = false;
-            }
-            else {
+            } else {
                 getParsingFlags(config).unusedTokens.push(token);
             }
             addTimeToArrayFromToken(token, parsedInput, config);
-        }
-        else if (config._strict && !parsedInput) {
+        } else if (config._strict && !parsedInput) {
             getParsingFlags(config).unusedTokens.push(token);
         }
     }
@@ -71,9 +73,7 @@ export function configFromStringAndFormat(config) {
     }
 
     // clear _12h flag if hour is <= 12
-    if (config._a[HOUR] <= 12 &&
-        getParsingFlags(config).bigHour === true &&
-        config._a[HOUR] > 0) {
+    if (config._a[HOUR] <= 12 && getParsingFlags(config).bigHour === true && config._a[HOUR] > 0) {
         getParsingFlags(config).bigHour = undefined;
     }
 
@@ -86,8 +86,7 @@ export function configFromStringAndFormat(config) {
     checkOverflow(config);
 }
 
-
-function meridiemFixWrap (locale, hour, meridiem) {
+function meridiemFixWrap(locale, hour, meridiem) {
     var isPm;
 
     if (meridiem == null) {

@@ -10,7 +10,7 @@
 // http://ionden.com/a/plugins/licence-en.html
 // =====================================================================================================================
 
-;(function(factory) {
+(function (factory) {
     if (!jQuery && typeof define === "function" && define.amd) {
         define(["jquery"], function (jQuery) {
             return factory(jQuery, document, window, navigator);
@@ -20,7 +20,7 @@
     } else {
         factory(jQuery, document, window, navigator);
     }
-} (function ($, document, window, navigator, undefined) {
+})(function ($, document, window, navigator, undefined) {
     "use strict";
 
     // =================================================================================================================
@@ -42,10 +42,9 @@
             }
         }
         return false;
-    } ());
+    })();
     if (!Function.prototype.bind) {
         Function.prototype.bind = function bind(that) {
-
             var target = this;
             var slice = [].slice;
 
@@ -55,38 +54,26 @@
 
             var args = slice.call(arguments, 1),
                 bound = function () {
-
                     if (this instanceof bound) {
-
-                        var F = function(){};
+                        var F = function () {};
                         F.prototype = target.prototype;
                         var self = new F();
 
-                        var result = target.apply(
-                            self,
-                            args.concat(slice.call(arguments))
-                        );
+                        var result = target.apply(self, args.concat(slice.call(arguments)));
                         if (Object(result) === result) {
                             return result;
                         }
                         return self;
-
                     } else {
-
-                        return target.apply(
-                            that,
-                            args.concat(slice.call(arguments))
-                        );
-
+                        return target.apply(that, args.concat(slice.call(arguments)));
                     }
-
                 };
 
             return bound;
         };
     }
     if (!Array.prototype.indexOf) {
-        Array.prototype.indexOf = function(searchElement, fromIndex) {
+        Array.prototype.indexOf = function (searchElement, fromIndex) {
             var k;
             if (this == null) {
                 throw new TypeError('"this" is null or not defined');
@@ -114,8 +101,6 @@
         };
     }
 
-
-
     // =================================================================================================================
     // Template
 
@@ -124,7 +109,7 @@
         '<span class="irs-line" tabindex="0"></span>' +
         '<span class="irs-min">0</span><span class="irs-max">1</span>' +
         '<span class="irs-from">0</span><span class="irs-to">0</span><span class="irs-single">0</span>' +
-        '</span>' +
+        "</span>" +
         '<span class="irs-grid"></span>';
 
     var single_html =
@@ -139,10 +124,7 @@
         '<span class="irs-handle from"><i></i><i></i><i></i></span>' +
         '<span class="irs-handle to"><i></i><i></i><i></i></span>';
 
-    var disable_html =
-        '<span class="irs-disable-mask"></span>';
-
-
+    var disable_html = '<span class="irs-disable-mask"></span>';
 
     // =================================================================================================================
     // Core
@@ -261,14 +243,14 @@
             p_single_left: 0
         };
 
-
-
         /**
          * get and validate config
          */
         var $inp = this.$cache.input,
             val = $inp.prop("value"),
-            config, config_from_data, prop;
+            config,
+            config_from_data,
+            prop;
 
         // default config
         config = {
@@ -334,12 +316,10 @@
             onUpdate: null
         };
 
-
         // check if base element is input
         if ($inp[0].nodeName !== "INPUT") {
             console && console.warn && console.warn("Base element should be <input>!", $inp[0]);
         }
-
 
         // config from data-attributes extends js config
         config_from_data = {
@@ -394,7 +374,7 @@
             disable: $inp.data("disable"),
             block: $inp.data("block"),
 
-            extra_classes: $inp.data("extraClasses"),
+            extra_classes: $inp.data("extraClasses")
         };
         config_from_data.values = config_from_data.values && config_from_data.values.split(",");
 
@@ -405,7 +385,6 @@
                 }
             }
         }
-
 
         // input value extends default config
         if (val !== undefined && val !== "") {
@@ -427,23 +406,16 @@
             }
         }
 
-
-
         // js config extends default config
         $.extend(config, options);
-
 
         // data config extends config
         $.extend(config, config_from_data);
         this.options = config;
 
-
-
         // validate config, to be sure that all data types are correct
         this.update_check = {};
         this.validate();
-
-
 
         // default result object, returned to callbacks
         this.result = {
@@ -462,13 +434,10 @@
             to_value: null
         };
 
-
-
         this.init();
     };
 
     IonRangeSlider.prototype = {
-
         /**
          * Starts or updates the plugin instance
          *
@@ -505,7 +474,14 @@
          * Appends slider template to a DOM
          */
         append: function () {
-            var container_html = '<span class="irs irs--' + this.options.skin + ' js-irs-' + this.plugin_count + ' ' + this.options.extra_classes + '"></span>';
+            var container_html =
+                '<span class="irs irs--' +
+                this.options.skin +
+                " js-irs-" +
+                this.plugin_count +
+                " " +
+                this.options.extra_classes +
+                '"></span>';
             this.$cache.input.before(container_html);
             this.$cache.input.prop("readonly", true);
             this.$cache.cont = this.$cache.input.prev();
@@ -699,7 +675,10 @@
             if (this.options.type === "single") {
                 this.$cache.single.on("touchstart.irs_" + this.plugin_count, this.pointerDown.bind(this, "single"));
                 this.$cache.s_single.on("touchstart.irs_" + this.plugin_count, this.pointerDown.bind(this, "single"));
-                this.$cache.shad_single.on("touchstart.irs_" + this.plugin_count, this.pointerClick.bind(this, "click"));
+                this.$cache.shad_single.on(
+                    "touchstart.irs_" + this.plugin_count,
+                    this.pointerClick.bind(this, "click")
+                );
 
                 this.$cache.single.on("mousedown.irs_" + this.plugin_count, this.pointerDown.bind(this, "single"));
                 this.$cache.s_single.on("mousedown.irs_" + this.plugin_count, this.pointerDown.bind(this, "single"));
@@ -751,9 +730,9 @@
                 }
 
                 x = $handle.offset().left;
-                x += ($handle.width() / 2) - 1;
+                x += $handle.width() / 2 - 1;
 
-                this.pointerClick("single", {preventDefault: function () {}, pageX: x});
+                this.pointerClick("single", { preventDefault: function () {}, pageX: x });
             }
         },
 
@@ -768,7 +747,7 @@
                 return;
             }
 
-            var x = e.pageX || e.originalEvent.touches && e.originalEvent.touches[0].pageX;
+            var x = e.pageX || (e.originalEvent.touches && e.originalEvent.touches[0].pageX);
             this.coords.x_pointer = x - this.coords.x_gap;
 
             this.calc();
@@ -806,7 +785,7 @@
             if ($.contains(this.$cache.cont[0], e.target) || this.dragging) {
                 this.callOnFinish();
             }
-            
+
             this.dragging = false;
         },
 
@@ -819,7 +798,7 @@
          */
         pointerDown: function (target, e) {
             e.preventDefault();
-            var x = e.pageX || e.originalEvent.touches && e.originalEvent.touches[0].pageX;
+            var x = e.pageX || (e.originalEvent.touches && e.originalEvent.touches[0].pageX);
             if (e.button === 2) {
                 return;
             }
@@ -862,7 +841,7 @@
          */
         pointerClick: function (target, e) {
             e.preventDefault();
-            var x = e.pageX || e.originalEvent.touches && e.originalEvent.touches[0].pageX;
+            var x = e.pageX || (e.originalEvent.touches && e.originalEvent.touches[0].pageX);
             if (e.button === 2) {
                 return;
             }
@@ -929,7 +908,7 @@
                 p -= p_step;
             }
 
-            this.coords.x_pointer = this.toFixed(this.coords.w_rs / 100 * p);
+            this.coords.x_pointer = this.toFixed((this.coords.w_rs / 100) * p);
             this.is_key = true;
             this.calc();
         },
@@ -991,8 +970,6 @@
             }
         },
 
-
-
         // =============================================================================================================
         // Calculations
 
@@ -1022,7 +999,6 @@
             this.calcPointerPercent();
             var handle_x = this.getHandleX();
 
-
             if (this.target === "both") {
                 this.coords.p_gap = 0;
                 handle_x = this.getHandleX();
@@ -1049,9 +1025,21 @@
                     this.coords.p_from_real = this.toFixed(f);
                     this.coords.p_to_real = this.toFixed(t);
 
-                    this.coords.p_single_real = this.checkDiapason(this.coords.p_single_real, this.options.from_min, this.options.from_max);
-                    this.coords.p_from_real = this.checkDiapason(this.coords.p_from_real, this.options.from_min, this.options.from_max);
-                    this.coords.p_to_real = this.checkDiapason(this.coords.p_to_real, this.options.to_min, this.options.to_max);
+                    this.coords.p_single_real = this.checkDiapason(
+                        this.coords.p_single_real,
+                        this.options.from_min,
+                        this.options.from_max
+                    );
+                    this.coords.p_from_real = this.checkDiapason(
+                        this.coords.p_from_real,
+                        this.options.from_min,
+                        this.options.from_max
+                    );
+                    this.coords.p_to_real = this.checkDiapason(
+                        this.coords.p_to_real,
+                        this.options.to_min,
+                        this.options.to_max
+                    );
 
                     this.coords.p_single_fake = this.convertToFakePercent(this.coords.p_single_real);
                     this.coords.p_from_fake = this.convertToFakePercent(this.coords.p_from_real);
@@ -1068,7 +1056,11 @@
 
                     this.coords.p_single_real = this.convertToRealPercent(handle_x);
                     this.coords.p_single_real = this.calcWithStep(this.coords.p_single_real);
-                    this.coords.p_single_real = this.checkDiapason(this.coords.p_single_real, this.options.from_min, this.options.from_max);
+                    this.coords.p_single_real = this.checkDiapason(
+                        this.coords.p_single_real,
+                        this.options.from_min,
+                        this.options.from_max
+                    );
 
                     this.coords.p_single_fake = this.convertToFakePercent(this.coords.p_single_real);
 
@@ -1084,9 +1076,21 @@
                     if (this.coords.p_from_real > this.coords.p_to_real) {
                         this.coords.p_from_real = this.coords.p_to_real;
                     }
-                    this.coords.p_from_real = this.checkDiapason(this.coords.p_from_real, this.options.from_min, this.options.from_max);
-                    this.coords.p_from_real = this.checkMinInterval(this.coords.p_from_real, this.coords.p_to_real, "from");
-                    this.coords.p_from_real = this.checkMaxInterval(this.coords.p_from_real, this.coords.p_to_real, "from");
+                    this.coords.p_from_real = this.checkDiapason(
+                        this.coords.p_from_real,
+                        this.options.from_min,
+                        this.options.from_max
+                    );
+                    this.coords.p_from_real = this.checkMinInterval(
+                        this.coords.p_from_real,
+                        this.coords.p_to_real,
+                        "from"
+                    );
+                    this.coords.p_from_real = this.checkMaxInterval(
+                        this.coords.p_from_real,
+                        this.coords.p_to_real,
+                        "from"
+                    );
 
                     this.coords.p_from_fake = this.convertToFakePercent(this.coords.p_from_real);
 
@@ -1102,7 +1106,11 @@
                     if (this.coords.p_to_real < this.coords.p_from_real) {
                         this.coords.p_to_real = this.coords.p_from_real;
                     }
-                    this.coords.p_to_real = this.checkDiapason(this.coords.p_to_real, this.options.to_min, this.options.to_max);
+                    this.coords.p_to_real = this.checkDiapason(
+                        this.coords.p_to_real,
+                        this.options.to_min,
+                        this.options.to_max
+                    );
                     this.coords.p_to_real = this.checkMinInterval(this.coords.p_to_real, this.coords.p_from_real, "to");
                     this.coords.p_to_real = this.checkMaxInterval(this.coords.p_to_real, this.coords.p_from_real, "to");
 
@@ -1115,17 +1123,29 @@
                         break;
                     }
 
-                    handle_x = this.toFixed(handle_x + (this.coords.p_handle * 0.001));
+                    handle_x = this.toFixed(handle_x + this.coords.p_handle * 0.001);
 
                     this.coords.p_from_real = this.convertToRealPercent(handle_x) - this.coords.p_gap_left;
                     this.coords.p_from_real = this.calcWithStep(this.coords.p_from_real);
-                    this.coords.p_from_real = this.checkDiapason(this.coords.p_from_real, this.options.from_min, this.options.from_max);
-                    this.coords.p_from_real = this.checkMinInterval(this.coords.p_from_real, this.coords.p_to_real, "from");
+                    this.coords.p_from_real = this.checkDiapason(
+                        this.coords.p_from_real,
+                        this.options.from_min,
+                        this.options.from_max
+                    );
+                    this.coords.p_from_real = this.checkMinInterval(
+                        this.coords.p_from_real,
+                        this.coords.p_to_real,
+                        "from"
+                    );
                     this.coords.p_from_fake = this.convertToFakePercent(this.coords.p_from_real);
 
                     this.coords.p_to_real = this.convertToRealPercent(handle_x) + this.coords.p_gap_right;
                     this.coords.p_to_real = this.calcWithStep(this.coords.p_to_real);
-                    this.coords.p_to_real = this.checkDiapason(this.coords.p_to_real, this.options.to_min, this.options.to_max);
+                    this.coords.p_to_real = this.checkDiapason(
+                        this.coords.p_to_real,
+                        this.options.to_min,
+                        this.options.to_max
+                    );
                     this.coords.p_to_real = this.checkMinInterval(this.coords.p_to_real, this.coords.p_from_real, "to");
                     this.coords.p_to_fake = this.convertToFakePercent(this.coords.p_to_real);
 
@@ -1155,18 +1175,26 @@
                     }
 
                     this.coords.p_from_real = this.calcWithStep(new_from);
-                    this.coords.p_from_real = this.checkDiapason(this.coords.p_from_real, this.options.from_min, this.options.from_max);
+                    this.coords.p_from_real = this.checkDiapason(
+                        this.coords.p_from_real,
+                        this.options.from_min,
+                        this.options.from_max
+                    );
                     this.coords.p_from_fake = this.convertToFakePercent(this.coords.p_from_real);
 
                     this.coords.p_to_real = this.calcWithStep(new_to);
-                    this.coords.p_to_real = this.checkDiapason(this.coords.p_to_real, this.options.to_min, this.options.to_max);
+                    this.coords.p_to_real = this.checkDiapason(
+                        this.coords.p_to_real,
+                        this.options.to_min,
+                        this.options.to_max
+                    );
                     this.coords.p_to_fake = this.convertToFakePercent(this.coords.p_to_real);
 
                     break;
             }
 
             if (this.options.type === "single") {
-                this.coords.p_bar_x = (this.coords.p_handle / 2);
+                this.coords.p_bar_x = this.coords.p_handle / 2;
                 this.coords.p_bar_w = this.coords.p_single_fake;
 
                 this.result.from_percent = this.coords.p_single_real;
@@ -1177,7 +1205,7 @@
                     this.result.from_value = this.options.values[this.result.from];
                 }
             } else {
-                this.coords.p_bar_x = this.toFixed(this.coords.p_from_fake + (this.coords.p_handle / 2));
+                this.coords.p_bar_x = this.toFixed(this.coords.p_from_fake + this.coords.p_handle / 2);
                 this.coords.p_bar_w = this.toFixed(this.coords.p_to_fake - this.coords.p_from_fake);
 
                 this.result.from_percent = this.coords.p_from_real;
@@ -1197,7 +1225,6 @@
             this.calcLabels();
         },
 
-
         /**
          * calculates pointer X in percent
          */
@@ -1207,23 +1234,23 @@
                 return;
             }
 
-            if (this.coords.x_pointer < 0 || isNaN(this.coords.x_pointer)  ) {
+            if (this.coords.x_pointer < 0 || isNaN(this.coords.x_pointer)) {
                 this.coords.x_pointer = 0;
             } else if (this.coords.x_pointer > this.coords.w_rs) {
                 this.coords.x_pointer = this.coords.w_rs;
             }
 
-            this.coords.p_pointer = this.toFixed(this.coords.x_pointer / this.coords.w_rs * 100);
+            this.coords.p_pointer = this.toFixed((this.coords.x_pointer / this.coords.w_rs) * 100);
         },
 
         convertToRealPercent: function (fake) {
             var full = 100 - this.coords.p_handle;
-            return fake / full * 100;
+            return (fake / full) * 100;
         },
 
         convertToFakePercent: function (real) {
             var full = 100 - this.coords.p_handle;
-            return real / 100 * full;
+            return (real / 100) * full;
         },
 
         getHandleX: function () {
@@ -1246,7 +1273,7 @@
                 this.coords.w_handle = this.$cache.s_from.outerWidth(false);
             }
 
-            this.coords.p_handle = this.toFixed(this.coords.w_handle / this.coords.w_rs * 100);
+            this.coords.p_handle = this.toFixed((this.coords.w_handle / this.coords.w_rs) * 100);
         },
 
         /**
@@ -1259,7 +1286,7 @@
             if (this.options.type === "single") {
                 return "single";
             } else {
-                var m_point = this.coords.p_from_real + ((this.coords.p_to_real - this.coords.p_from_real) / 2);
+                var m_point = this.coords.p_from_real + (this.coords.p_to_real - this.coords.p_from_real) / 2;
                 if (real_x >= m_point) {
                     return this.options.to_fixed ? "from" : "to";
                 } else {
@@ -1276,8 +1303,8 @@
                 return;
             }
 
-            this.labels.p_min = this.labels.w_min / this.coords.w_rs * 100;
-            this.labels.p_max = this.labels.w_max / this.coords.w_rs * 100;
+            this.labels.p_min = (this.labels.w_min / this.coords.w_rs) * 100;
+            this.labels.p_max = (this.labels.w_max / this.coords.w_rs) * 100;
         },
 
         /**
@@ -1289,36 +1316,34 @@
             }
 
             if (this.options.type === "single") {
-
                 this.labels.w_single = this.$cache.single.outerWidth(false);
-                this.labels.p_single_fake = this.labels.w_single / this.coords.w_rs * 100;
-                this.labels.p_single_left = this.coords.p_single_fake + (this.coords.p_handle / 2) - (this.labels.p_single_fake / 2);
+                this.labels.p_single_fake = (this.labels.w_single / this.coords.w_rs) * 100;
+                this.labels.p_single_left =
+                    this.coords.p_single_fake + this.coords.p_handle / 2 - this.labels.p_single_fake / 2;
                 this.labels.p_single_left = this.checkEdges(this.labels.p_single_left, this.labels.p_single_fake);
-
             } else {
-
                 this.labels.w_from = this.$cache.from.outerWidth(false);
-                this.labels.p_from_fake = this.labels.w_from / this.coords.w_rs * 100;
-                this.labels.p_from_left = this.coords.p_from_fake + (this.coords.p_handle / 2) - (this.labels.p_from_fake / 2);
+                this.labels.p_from_fake = (this.labels.w_from / this.coords.w_rs) * 100;
+                this.labels.p_from_left =
+                    this.coords.p_from_fake + this.coords.p_handle / 2 - this.labels.p_from_fake / 2;
                 this.labels.p_from_left = this.toFixed(this.labels.p_from_left);
                 this.labels.p_from_left = this.checkEdges(this.labels.p_from_left, this.labels.p_from_fake);
 
                 this.labels.w_to = this.$cache.to.outerWidth(false);
-                this.labels.p_to_fake = this.labels.w_to / this.coords.w_rs * 100;
-                this.labels.p_to_left = this.coords.p_to_fake + (this.coords.p_handle / 2) - (this.labels.p_to_fake / 2);
+                this.labels.p_to_fake = (this.labels.w_to / this.coords.w_rs) * 100;
+                this.labels.p_to_left = this.coords.p_to_fake + this.coords.p_handle / 2 - this.labels.p_to_fake / 2;
                 this.labels.p_to_left = this.toFixed(this.labels.p_to_left);
                 this.labels.p_to_left = this.checkEdges(this.labels.p_to_left, this.labels.p_to_fake);
 
                 this.labels.w_single = this.$cache.single.outerWidth(false);
-                this.labels.p_single_fake = this.labels.w_single / this.coords.w_rs * 100;
-                this.labels.p_single_left = ((this.labels.p_from_left + this.labels.p_to_left + this.labels.p_to_fake) / 2) - (this.labels.p_single_fake / 2);
+                this.labels.p_single_fake = (this.labels.w_single / this.coords.w_rs) * 100;
+                this.labels.p_single_left =
+                    (this.labels.p_from_left + this.labels.p_to_left + this.labels.p_to_fake) / 2 -
+                    this.labels.p_single_fake / 2;
                 this.labels.p_single_left = this.toFixed(this.labels.p_single_left);
                 this.labels.p_single_left = this.checkEdges(this.labels.p_single_left, this.labels.p_single_fake);
-
             }
         },
-
-
 
         // =============================================================================================================
         // Drawings
@@ -1385,8 +1410,12 @@
                 return;
             }
 
-            if (this.old_from !== this.result.from || this.old_to !== this.result.to || this.force_redraw || this.is_key) {
-
+            if (
+                this.old_from !== this.result.from ||
+                this.old_to !== this.result.to ||
+                this.force_redraw ||
+                this.is_key
+            ) {
                 this.drawLabels();
 
                 this.$cache.bar[0].style.left = this.coords.p_bar_x + "%";
@@ -1467,7 +1496,6 @@
             }
 
             if (this.options.type === "single") {
-
                 if (values_num) {
                     text_single = this.decorate(p_values[this.result.from]);
                     this.$cache.single.html(text_single);
@@ -1491,17 +1519,16 @@
                 } else {
                     this.$cache.max[0].style.visibility = "visible";
                 }
-
             } else {
-
                 if (values_num) {
-
                     if (this.options.decorate_both) {
                         text_single = this.decorate(p_values[this.result.from]);
                         text_single += this.options.values_separator;
                         text_single += this.decorate(p_values[this.result.to]);
                     } else {
-                        text_single = this.decorate(p_values[this.result.from] + this.options.values_separator + p_values[this.result.to]);
+                        text_single = this.decorate(
+                            p_values[this.result.from] + this.options.values_separator + p_values[this.result.to]
+                        );
                     }
                     text_from = this.decorate(p_values[this.result.from]);
                     text_to = this.decorate(p_values[this.result.to]);
@@ -1509,7 +1536,6 @@
                     this.$cache.single.html(text_single);
                     this.$cache.from.html(text_from);
                     this.$cache.to.html(text_to);
-
                 } else {
                     from_pretty = this._prettify(this.result.from);
                     to_pretty = this._prettify(this.result.to);
@@ -1519,7 +1545,10 @@
                         text_single += this.options.values_separator;
                         text_single += this.decorate(to_pretty, this.result.to);
                     } else {
-                        text_single = this.decorate(from_pretty + this.options.values_separator + to_pretty, this.result.to);
+                        text_single = this.decorate(
+                            from_pretty + this.options.values_separator + to_pretty,
+                            this.result.to
+                        );
                     }
                     text_from = this.decorate(from_pretty, this.result.from);
                     text_to = this.decorate(to_pretty, this.result.to);
@@ -1527,7 +1556,6 @@
                     this.$cache.single.html(text_single);
                     this.$cache.from.html(text_from);
                     this.$cache.to.html(text_to);
-
                 }
 
                 this.calcLabels();
@@ -1575,7 +1603,6 @@
                 } else {
                     this.$cache.max[0].style.visibility = "visible";
                 }
-
             }
         },
 
@@ -1585,12 +1612,10 @@
         drawShadow: function () {
             var o = this.options,
                 c = this.$cache,
-
                 is_from_min = typeof o.from_min === "number" && !isNaN(o.from_min),
                 is_from_max = typeof o.from_max === "number" && !isNaN(o.from_max),
                 is_to_min = typeof o.to_min === "number" && !isNaN(o.to_min),
                 is_to_max = typeof o.to_max === "number" && !isNaN(o.to_max),
-
                 from_min,
                 from_max,
                 to_min,
@@ -1600,9 +1625,9 @@
                 if (o.from_shadow && (is_from_min || is_from_max)) {
                     from_min = this.convertToPercent(is_from_min ? o.from_min : o.min);
                     from_max = this.convertToPercent(is_from_max ? o.from_max : o.max) - from_min;
-                    from_min = this.toFixed(from_min - (this.coords.p_handle / 100 * from_min));
-                    from_max = this.toFixed(from_max - (this.coords.p_handle / 100 * from_max));
-                    from_min = from_min + (this.coords.p_handle / 2);
+                    from_min = this.toFixed(from_min - (this.coords.p_handle / 100) * from_min);
+                    from_max = this.toFixed(from_max - (this.coords.p_handle / 100) * from_max);
+                    from_min = from_min + this.coords.p_handle / 2;
 
                     c.shad_single[0].style.display = "block";
                     c.shad_single[0].style.left = from_min + "%";
@@ -1614,9 +1639,9 @@
                 if (o.from_shadow && (is_from_min || is_from_max)) {
                     from_min = this.convertToPercent(is_from_min ? o.from_min : o.min);
                     from_max = this.convertToPercent(is_from_max ? o.from_max : o.max) - from_min;
-                    from_min = this.toFixed(from_min - (this.coords.p_handle / 100 * from_min));
-                    from_max = this.toFixed(from_max - (this.coords.p_handle / 100 * from_max));
-                    from_min = from_min + (this.coords.p_handle / 2);
+                    from_min = this.toFixed(from_min - (this.coords.p_handle / 100) * from_min);
+                    from_max = this.toFixed(from_max - (this.coords.p_handle / 100) * from_max);
+                    from_min = from_min + this.coords.p_handle / 2;
 
                     c.shad_from[0].style.display = "block";
                     c.shad_from[0].style.left = from_min + "%";
@@ -1628,9 +1653,9 @@
                 if (o.to_shadow && (is_to_min || is_to_max)) {
                     to_min = this.convertToPercent(is_to_min ? o.to_min : o.min);
                     to_max = this.convertToPercent(is_to_max ? o.to_max : o.max) - to_min;
-                    to_min = this.toFixed(to_min - (this.coords.p_handle / 100 * to_min));
-                    to_max = this.toFixed(to_max - (this.coords.p_handle / 100 * to_max));
-                    to_min = to_min + (this.coords.p_handle / 2);
+                    to_min = this.toFixed(to_min - (this.coords.p_handle / 100) * to_min);
+                    to_max = this.toFixed(to_max - (this.coords.p_handle / 100) * to_max);
+                    to_min = to_min + this.coords.p_handle / 2;
 
                     c.shad_to[0].style.display = "block";
                     c.shad_to[0].style.left = to_min + "%";
@@ -1640,8 +1665,6 @@
                 }
             }
         },
-
-
 
         /**
          * Write values to input element
@@ -1656,16 +1679,20 @@
                 this.$cache.input.data("from", this.result.from);
             } else {
                 if (this.options.values.length) {
-                    this.$cache.input.prop("value", this.result.from_value + this.options.input_values_separator + this.result.to_value);
+                    this.$cache.input.prop(
+                        "value",
+                        this.result.from_value + this.options.input_values_separator + this.result.to_value
+                    );
                 } else {
-                    this.$cache.input.prop("value", this.result.from + this.options.input_values_separator + this.result.to);
+                    this.$cache.input.prop(
+                        "value",
+                        this.result.from + this.options.input_values_separator + this.result.to
+                    );
                 }
                 this.$cache.input.data("from", this.result.from);
                 this.$cache.input.data("to", this.result.to);
             }
         },
-
-
 
         // =============================================================================================================
         // Callbacks
@@ -1715,9 +1742,6 @@
             }
         },
 
-
-
-
         // =============================================================================================================
         // Service methods
 
@@ -1743,7 +1767,8 @@
         convertToPercent: function (value, no_min) {
             var diapason = this.options.max - this.options.min,
                 one_percent = diapason / 100,
-                val, percent;
+                val,
+                percent;
 
             if (!diapason) {
                 this.no_diapason = true;
@@ -1772,7 +1797,8 @@
                 max = this.options.max,
                 min_decimals = min.toString().split(".")[1],
                 max_decimals = max.toString().split(".")[1],
-                min_length, max_length,
+                min_length,
+                max_length,
                 avg_decimals = 0,
                 abs = 0;
 
@@ -1783,7 +1809,6 @@
                 return this.options.max;
             }
 
-
             if (min_decimals) {
                 min_length = min_decimals.length;
                 avg_decimals = min_length;
@@ -1793,7 +1818,7 @@
                 avg_decimals = max_length;
             }
             if (min_length && max_length) {
-                avg_decimals = (min_length >= max_length) ? min_length : max_length;
+                avg_decimals = min_length >= max_length ? min_length : max_length;
             }
 
             if (min < 0) {
@@ -1802,7 +1827,7 @@
                 max = +(max + abs).toFixed(avg_decimals);
             }
 
-            var number = ((max - min) / 100 * percent) + min,
+            var number = ((max - min) / 100) * percent + min,
                 string = this.options.step.toString().split(".")[1],
                 result;
 
@@ -1866,17 +1891,13 @@
             next = this.convertToValue(p_next);
 
             if (type === "from") {
-
                 if (next - current < o.min_interval) {
                     current = next - o.min_interval;
                 }
-
             } else {
-
                 if (current - next < o.min_interval) {
                     current = next + o.min_interval;
                 }
-
             }
 
             return this.convertToPercent(current);
@@ -1895,17 +1916,13 @@
             next = this.convertToValue(p_next);
 
             if (type === "from") {
-
                 if (next - current > o.max_interval) {
                     current = next - o.max_interval;
                 }
-
             } else {
-
                 if (current - next > o.max_interval) {
                     current = next + o.max_interval;
                 }
-
             }
 
             return this.convertToPercent(current);
@@ -2026,12 +2043,9 @@
             }
 
             if (o.type === "single") {
-
                 if (o.from < o.min) o.from = o.min;
                 if (o.from > o.max) o.from = o.max;
-
             } else {
-
                 if (o.from < o.min) o.from = o.min;
                 if (o.from > o.max) o.from = o.max;
 
@@ -2039,19 +2053,16 @@
                 if (o.to > o.max) o.to = o.max;
 
                 if (this.update_check.from) {
-
                     if (this.update_check.from !== o.from) {
                         if (o.from > o.to) o.from = o.to;
                     }
                     if (this.update_check.to !== o.to) {
                         if (o.to < o.from) o.to = o.from;
                     }
-
                 }
 
                 if (o.from > o.to) o.from = o.to;
                 if (o.to < o.from) o.to = o.from;
-
             }
 
             if (typeof o.step !== "number" || isNaN(o.step) || !o.step || o.step < 0) {
@@ -2165,7 +2176,6 @@
             this.updateTo();
         },
 
-
         // =============================================================================================================
         // Grid
 
@@ -2175,22 +2185,18 @@
             }
 
             var o = this.options,
-                i, z,
-
+                i,
+                z,
                 total = o.max - o.min,
                 big_num = o.grid_num,
                 big_p = 0,
                 big_w = 0,
-
                 small_max = 4,
                 local_small_max,
                 small_p,
                 small_w = 0,
-
                 result,
-                html = '';
-
-
+                html = "";
 
             this.calcGridMargin();
 
@@ -2224,14 +2230,14 @@
                 }
                 this.coords.big[i] = big_w;
 
-                small_p = (big_w - (big_p * (i - 1))) / (local_small_max + 1);
+                small_p = (big_w - big_p * (i - 1)) / (local_small_max + 1);
 
                 for (z = 1; z <= local_small_max; z++) {
                     if (big_w === 0) {
                         break;
                     }
 
-                    small_w = this.toFixed(big_w - (small_p * z));
+                    small_w = this.toFixed(big_w - small_p * z);
 
                     html += '<span class="irs-grid-pol small" style="left: ' + small_w + '%"></span>';
                 }
@@ -2245,11 +2251,16 @@
                     result = this._prettify(result);
                 }
 
-                html += '<span class="irs-grid-text js-grid-text-' + i + '" style="left: ' + big_w + '%">' + result + '</span>';
+                html +=
+                    '<span class="irs-grid-text js-grid-text-' +
+                    i +
+                    '" style="left: ' +
+                    big_w +
+                    '%">' +
+                    result +
+                    "</span>";
             }
             this.coords.big_num = Math.ceil(big_num + 1);
-
-
 
             this.$cache.cont.addClass("irs-with-grid");
             this.$cache.grid.html(html);
@@ -2257,7 +2268,8 @@
         },
 
         cacheGridLabels: function () {
-            var $label, i,
+            var $label,
+                i,
                 num = this.coords.big_num;
 
             for (i = 0; i < num; i++) {
@@ -2269,12 +2281,15 @@
         },
 
         calcGridLabels: function () {
-            var i, label, start = [], finish = [],
+            var i,
+                label,
+                start = [],
+                finish = [],
                 num = this.coords.big_num;
 
             for (i = 0; i < num; i++) {
                 this.coords.big_w[i] = this.$cache.grid_labels[i].outerWidth(false);
-                this.coords.big_p[i] = this.toFixed(this.coords.big_w[i] / this.coords.w_rs * 100);
+                this.coords.big_p[i] = this.toFixed((this.coords.big_w[i] / this.coords.w_rs) * 100);
                 this.coords.big_x[i] = this.toFixed(this.coords.big_p[i] / 2);
 
                 start[i] = this.toFixed(this.coords.big[i] - this.coords.big_x[i]);
@@ -2312,11 +2327,13 @@
         // Collisions Calc Beta
         // TODO: Refactor then have plenty of time
         calcGridCollision: function (step, start, finish) {
-            var i, next_i, label,
+            var i,
+                next_i,
+                label,
                 num = this.coords.big_num;
 
             for (i = 0; i < num; i += step) {
-                next_i = i + (step / 2);
+                next_i = i + step / 2;
                 if (next_i >= num) {
                     break;
                 }
@@ -2346,14 +2363,12 @@
             } else {
                 this.coords.w_handle = this.$cache.s_from.outerWidth(false);
             }
-            this.coords.p_handle = this.toFixed(this.coords.w_handle  / this.coords.w_rs * 100);
-            this.coords.grid_gap = this.toFixed((this.coords.p_handle / 2) - 0.1);
+            this.coords.p_handle = this.toFixed((this.coords.w_handle / this.coords.w_rs) * 100);
+            this.coords.grid_gap = this.toFixed(this.coords.p_handle / 2 - 0.1);
 
             this.$cache.grid[0].style.width = this.toFixed(100 - this.coords.p_handle) + "%";
             this.$cache.grid[0].style.left = this.coords.grid_gap + "%";
         },
-
-
 
         // =============================================================================================================
         // Public methods
@@ -2404,14 +2419,12 @@
     };
 
     $.fn.ionRangeSlider = function (options) {
-        return this.each(function() {
+        return this.each(function () {
             if (!$.data(this, "ionRangeSlider")) {
                 $.data(this, "ionRangeSlider", new IonRangeSlider(this, options, plugin_count++));
             }
         });
     };
-
-
 
     // =================================================================================================================
     // http://paulirish.com/2011/requestanimationframe-for-smart-animating/
@@ -2421,29 +2434,29 @@
 
     // MIT license
 
-    (function() {
+    (function () {
         var lastTime = 0;
-        var vendors = ['ms', 'moz', 'webkit', 'o'];
-        for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
-            window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-            window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
-                || window[vendors[x]+'CancelRequestAnimationFrame'];
+        var vendors = ["ms", "moz", "webkit", "o"];
+        for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+            window.requestAnimationFrame = window[vendors[x] + "RequestAnimationFrame"];
+            window.cancelAnimationFrame =
+                window[vendors[x] + "CancelAnimationFrame"] || window[vendors[x] + "CancelRequestAnimationFrame"];
         }
 
         if (!window.requestAnimationFrame)
-            window.requestAnimationFrame = function(callback, element) {
+            window.requestAnimationFrame = function (callback, element) {
                 var currTime = new Date().getTime();
                 var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-                var id = window.setTimeout(function() { callback(currTime + timeToCall); },
-                    timeToCall);
+                var id = window.setTimeout(function () {
+                    callback(currTime + timeToCall);
+                }, timeToCall);
                 lastTime = currTime + timeToCall;
                 return id;
             };
 
         if (!window.cancelAnimationFrame)
-            window.cancelAnimationFrame = function(id) {
+            window.cancelAnimationFrame = function (id) {
                 clearTimeout(id);
             };
-    }());
-
-}));
+    })();
+});

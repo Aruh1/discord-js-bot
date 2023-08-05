@@ -8,7 +8,8 @@ body {
     width: 95%;
     max-width: 1260px;
 }
-p, pre {
+p,
+pre {
     margin-bottom: 2em;
 }
 .main h2 {
@@ -66,7 +67,8 @@ input[type="text"] {
 .navbar .container {
     padding: 0 20px;
 }
-.navbar-nav li a:link, .navbar-nav li a:visited {
+.navbar-nav li a:link,
+.navbar-nav li a:visited {
     font-weight: bold;
     color: #fff;
     font-size: 16px;
@@ -81,8 +83,8 @@ input[type="text"] {
     padding: 0;
 }
 .navbar-inverse .navbar-text {
-        margin: 18px 0 0 0;
-        color: #eee;
+    margin: 18px 0 0 0;
+    color: #eee;
 }
 #footer {
     background: #222;
@@ -91,12 +93,13 @@ input[type="text"] {
     color: #fff;
     text-align: center;
 }
-#footer a:link, #footer a:visited {
+#footer a:link,
+#footer a:visited {
     color: #fff;
     border-bottom: 1px dotted #fff;
 }
 #jumbo {
-    background: #f5f5f5 linear-gradient(to bottom,#eee 0,#f5f5f5 100%);
+    background: #f5f5f5 linear-gradient(to bottom, #eee 0, #f5f5f5 100%);
     color: #000;
     padding: 30px 0;
     margin-bottom: 30px;
@@ -104,8 +107,16 @@ input[type="text"] {
 #jumbo .btn {
     border-radius: 0;
 }
-#config .demo { position: relative; }
-#config .demo i { position: absolute; bottom: 10px; right: 24px; top: auto; cursor: pointer; }
+#config .demo {
+    position: relative;
+}
+#config .demo i {
+    position: absolute;
+    bottom: 10px;
+    right: 24px;
+    top: auto;
+    cursor: pointer;
+}
 
 #rightcol {
     margin-left: 330px;

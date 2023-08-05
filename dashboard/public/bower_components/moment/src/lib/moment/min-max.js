@@ -1,10 +1,10 @@
-import { deprecate } from '../utils/deprecate';
-import isArray from '../utils/is-array';
-import { createLocal } from '../create/local';
-import { createInvalid } from '../create/valid';
+import { deprecate } from "../utils/deprecate";
+import isArray from "../utils/is-array";
+import { createLocal } from "../create/local";
+import { createInvalid } from "../create/valid";
 
 export var prototypeMin = deprecate(
-    'moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/',
+    "moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/",
     function () {
         var other = createLocal.apply(null, arguments);
         if (this.isValid() && other.isValid()) {
@@ -16,7 +16,7 @@ export var prototypeMin = deprecate(
 );
 
 export var prototypeMax = deprecate(
-    'moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/',
+    "moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/",
     function () {
         var other = createLocal.apply(null, arguments);
         if (this.isValid() && other.isValid()) {
@@ -50,14 +50,14 @@ function pickBy(fn, moments) {
 }
 
 // TODO: Use [].sort instead?
-export function min () {
+export function min() {
     var args = [].slice.call(arguments, 0);
 
-    return pickBy('isBefore', args);
+    return pickBy("isBefore", args);
 }
 
-export function max () {
+export function max() {
     var args = [].slice.call(arguments, 0);
 
-    return pickBy('isAfter', args);
+    return pickBy("isAfter", args);
 }

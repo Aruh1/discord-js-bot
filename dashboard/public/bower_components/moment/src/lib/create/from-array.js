@@ -1,11 +1,11 @@
-import { hooks } from '../utils/hooks';
-import { createDate, createUTCDate } from './date-from-array';
-import { daysInYear } from '../units/year';
-import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from '../units/week-calendar-utils';
-import { YEAR, MONTH, DATE, HOUR, MINUTE, SECOND, MILLISECOND } from '../units/constants';
-import { createLocal } from './local';
-import defaults from '../utils/defaults';
-import getParsingFlags from './parsing-flags';
+import { hooks } from "../utils/hooks";
+import { createDate, createUTCDate } from "./date-from-array";
+import { daysInYear } from "../units/year";
+import { weekOfYear, weeksInYear, dayOfYearFromWeeks } from "../units/week-calendar-utils";
+import { YEAR, MONTH, DATE, HOUR, MINUTE, SECOND, MILLISECOND } from "../units/constants";
+import { createLocal } from "./local";
+import defaults from "../utils/defaults";
+import getParsingFlags from "./parsing-flags";
 
 function currentDateArray(config) {
     // hooks is actually the exported moment object
@@ -20,8 +20,13 @@ function currentDateArray(config) {
 // the array should mirror the parameters below
 // note: all values past the year are optional and will default to the lowest possible value.
 // [year, month, day , hour, minute, second, millisecond]
-export function configFromArray (config) {
-    var i, date, input = [], currentDate, expectedWeekday, yearToUse;
+export function configFromArray(config) {
+    var i,
+        date,
+        input = [],
+        currentDate,
+        expectedWeekday,
+        yearToUse;
 
     if (config._d) {
         return;
@@ -58,14 +63,11 @@ export function configFromArray (config) {
 
     // Zero out whatever was not defaulted, including time
     for (; i < 7; i++) {
-        config._a[i] = input[i] = (config._a[i] == null) ? (i === 2 ? 1 : 0) : config._a[i];
+        config._a[i] = input[i] = config._a[i] == null ? (i === 2 ? 1 : 0) : config._a[i];
     }
 
     // Check for 24:00:00.000
-    if (config._a[HOUR] === 24 &&
-            config._a[MINUTE] === 0 &&
-            config._a[SECOND] === 0 &&
-            config._a[MILLISECOND] === 0) {
+    if (config._a[HOUR] === 24 && config._a[MINUTE] === 0 && config._a[SECOND] === 0 && config._a[MILLISECOND] === 0) {
         config._nextDay = true;
         config._a[HOUR] = 0;
     }
@@ -84,7 +86,7 @@ export function configFromArray (config) {
     }
 
     // check for mismatching day of week
-    if (config._w && typeof config._w.d !== 'undefined' && config._w.d !== expectedWeekday) {
+    if (config._w && typeof config._w.d !== "undefined" && config._w.d !== expectedWeekday) {
         getParsingFlags(config).weekdayMismatch = true;
     }
 }

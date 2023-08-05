@@ -2,13 +2,7 @@
     "name": "knob",
     "title": "jQuery Knob",
     "description": "Nice, downward compatible, touchable, jQuery dial.",
-    "keywords": [
-        "dial",
-        "button",
-        "knob",
-        "ui",
-        "input"
-    ],
+    "keywords": ["dial", "button", "knob", "ui", "input"],
     "version": "1.2.13",
     "author": {
         "name": "Anthony Terrien",

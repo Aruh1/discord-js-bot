@@ -9,18 +9,20 @@ Regex extensions on the jquery.inputmask base
 Allows for using regular expressions as a mask
 */
 (function ($) {
-    $.extend($.inputmask.defaults.aliases, { // $(selector).inputmask("Regex", { regex: "[0-9]*"}
-        'Regex': {
+    $.extend($.inputmask.defaults.aliases, {
+        // $(selector).inputmask("Regex", { regex: "[0-9]*"}
+        Regex: {
             mask: "r",
             greedy: false,
             repeat: "*",
             regex: null,
             regexTokens: null,
             //Thx to https://github.com/slevithan/regex-colorizer for the tokenizer regex
-            tokenizer: /\[\^?]?(?:[^\\\]]+|\\[\S\s]?)*]?|\\(?:0(?:[0-3][0-7]{0,2}|[4-7][0-7]?)?|[1-9][0-9]*|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|c[A-Za-z]|[\S\s]?)|\((?:\?[:=!]?)?|(?:[?*+]|\{[0-9]+(?:,[0-9]*)?\})\??|[^.?*+^${[()|\\]+|./g,
+            tokenizer:
+                /\[\^?]?(?:[^\\\]]+|\\[\S\s]?)*]?|\\(?:0(?:[0-3][0-7]{0,2}|[4-7][0-7]?)?|[1-9][0-9]*|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|c[A-Za-z]|[\S\s]?)|\((?:\?[:=!]?)?|(?:[?*+]|\{[0-9]+(?:,[0-9]*)?\})\??|[^.?*+^${[()|\\]+|./g,
             quantifierFilter: /[0-9]+[^,]/,
             definitions: {
-                'r': {
+                r: {
                     validator: function (chrs, buffer, pos, strict, opts) {
                         function regexToken() {
                             this.matches = [];
@@ -29,16 +31,19 @@ Allows for using regular expressions as a mask
                             this.isLiteral = false;
                         }
                         function analyseRegex() {
-                            var currentToken = new regexToken(), match, m, opengroups = [];
+                            var currentToken = new regexToken(),
+                                match,
+                                m,
+                                opengroups = [];
 
                             opts.regexTokens = [];
 
                             // The tokenizer regex does most of the tokenization grunt work
-                            while (match = opts.tokenizer.exec(opts.regex)) {
+                            while ((match = opts.tokenizer.exec(opts.regex))) {
                                 m = match[0];
                                 switch (m.charAt(0)) {
                                     case "[": // Character class
-                                    case "\\":  // Escape or backreference
+                                    case "\\": // Escape or backreference
                                         if (opengroups.length > 0) {
                                             opengroups[opengroups.length - 1]["matches"].push(m);
                                         } else {
@@ -72,7 +77,7 @@ Allows for using regular expressions as a mask
                                         }
                                         break;
                                     default:
-                                        // Vertical bar (alternator) 
+                                        // Vertical bar (alternator)
                                         // ^ or $ anchor
                                         // Dot (.)
                                         // Literal character sequence
@@ -87,8 +92,7 @@ Allows for using regular expressions as a mask
                                 }
                             }
 
-                            if (currentToken.matches.length > 0)
-                                opts.regexTokens.push(currentToken);
+                            if (currentToken.matches.length > 0) opts.regexTokens.push(currentToken);
                         }
                         function validateRegexToken(token, fromGroup) {
                             var isvalid = false;
@@ -112,11 +116,13 @@ Allows for using regular expressions as a mask
                                     regexPart += matchToken;
                                 } else if (matchToken["isLiteral"] == true) {
                                     matchToken = matchToken["matches"][0];
-                                    var testExp = regexPart, openGroupCloser = "";
+                                    var testExp = regexPart,
+                                        openGroupCloser = "";
                                     for (var j = 0; j < openGroupCount; j++) {
                                         openGroupCloser += ")";
                                     }
-                                    for (var k = 0; k < matchToken.length; k++) { //relax literal validation
+                                    for (var k = 0; k < matchToken.length; k++) {
+                                        //relax literal validation
                                         testExp = (testExp + matchToken[k]).replace(/\|$/, "");
                                         var exp = new RegExp("^(" + testExp + openGroupCloser + ")$");
                                         isvalid = exp.test(bufferStr);
@@ -145,14 +151,16 @@ Allows for using regular expressions as a mask
                             return isvalid;
                         }
 
-
                         if (opts.regexTokens == null) {
                             analyseRegex();
                         }
 
-                        var cbuffer = buffer.slice(), regexPart = "", isValid = false, openGroupCount = 0;
+                        var cbuffer = buffer.slice(),
+                            regexPart = "",
+                            isValid = false,
+                            openGroupCount = 0;
                         cbuffer.splice(pos, 0, chrs);
-                        var bufferStr = cbuffer.join('');
+                        var bufferStr = cbuffer.join("");
                         for (var i = 0; i < opts.regexTokens.length; i++) {
                             var regexToken = opts.regexTokens[i];
                             isValid = validateRegexToken(regexToken, regexToken["isGroup"]);

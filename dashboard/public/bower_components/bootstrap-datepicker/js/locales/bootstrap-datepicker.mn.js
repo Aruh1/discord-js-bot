@@ -2,8 +2,8 @@
  * Mongolian translation for bootstrap-datepicker
  * Andrey Torsunov <andrey.torsunov@gmail.com>
  */
-;(function($){
-    $.fn.datepicker.dates['mn'] = {
+(function ($) {
+    $.fn.datepicker.dates["mn"] = {
         days: ["Ням", "Даваа", "Мягмар", "Лхагва", "Пүрэв", "Баасан", "Бямба"],
         daysShort: ["Ням", "Дав", "Мяг", "Лха", "Пүр", "Баа", "Бям"],
         daysMin: ["Ня", "Да", "Мя", "Лх", "Пү", "Ба", "Бя"],
@@ -14,4 +14,4 @@
         format: "yyyy.mm.dd",
         weekStart: 1
     };
-}(jQuery));
+})(jQuery);
