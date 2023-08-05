@@ -11,7 +11,8 @@
   "scripts": {
     "dev": "nodemon .",
     "start": "node .",
-    "format": "prettier --write src",
+    "check": "prettier --check .",
+    "format": "prettier --write .",
     "docker:build": "docker build -t saitejamadha/discord-js-bot:5.4.0 .",
     "ocoai": "opencommit"
   },
@@ -72,6 +73,12 @@
     "node": "^20.4.0",
     "nodemon": "^3.0.1",
     "prettier": "3.0.0"
+  },
+  "prettier": {
+    "tabWidth": 4,
+    "trailingComma": "none",
+    "arrowParens": "avoid",
+    "printWidth": 120
   },
   "keywords": [
     "discord",
