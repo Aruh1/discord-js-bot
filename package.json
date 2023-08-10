@@ -59,7 +59,8 @@
         "table": "^6.8.1",
         "timestamp-to-date": "^1.1.0",
         "twemoji-parser": "^14.0.0",
-        "opencommit": "^2.4.2"
+        "opencommit": "^2.4.2",
+        "speedtest-net": "github:RfadnjdExt/speedtest.net"
     },
     "optionalDependencies": {
         "bufferutil": "^4.0.7",
