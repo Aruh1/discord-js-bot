@@ -105,7 +105,7 @@ module.exports = async guild => {
             }
         );
 
-    if (guild.splashURL()) embed.setImage(guild.splashURL({ extension: "png", size: 256 }));
+    if (guild.splashURL()) embed.setImage(guild.splashURL({ extension: "png", size: 2048 }));
 
     return { embeds: [embed] };
 };
