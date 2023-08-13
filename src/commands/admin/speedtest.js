@@ -4,7 +4,7 @@ const speedTest = require("speedtest-net");
 module.exports = {
     name: "speedtest",
     description: "Speed hosting bot",
-    category: "INFORMATION",
+    category: "ADMIN",
     command: {
         enabled: true
     },
@@ -43,7 +43,7 @@ module.exports = {
                 .setThumbnail(
                     "https://store-images.s-microsoft.com/image/apps.52586.13510798887693184.740d7baf-50aa-4e26-adec-ae739ac12068.c9ef9495-f245-4367-872b-c5cc7b48841d"
                 )
-                .addFields({ name: "Result", value: speed.result.url })
+                .addFields({ name: "Result", value: `[View Result](${speed.result.url})` })
                 .setImage(`${speed.result.url}.png`);
 
             interaction.editReply({ embeds: [finishEmbed] });

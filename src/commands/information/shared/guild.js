@@ -39,7 +39,7 @@ module.exports = async guild => {
         .map(r => `${r.name}[${getMembersInRole(memberCache, r)}]`)
         .join(", ");
 
-    if (rolesString.length > 1024) rolesString = rolesString.substring(0, 1020) + "...";
+    if (rolesString.length > 1024) rolesString = rolesString.substring(0, 240) + "...";
 
     let { verificationLevel } = guild;
     switch (guild.verificationLevel) {
@@ -63,7 +63,7 @@ module.exports = async guild => {
     desc += "\n";
 
     const embed = new EmbedBuilder()
-        .setTitle("GUILD INFORMATION")
+        .setTitle("Guild Information")
         .setThumbnail(guild.iconURL())
         .setColor(EMBED_COLORS.BOT_EMBED)
         .setDescription(desc)
