@@ -7,6 +7,9 @@ module.exports = {
         ENABLED: true, // Enable/Disable prefix commands
         DEFAULT_PREFIX: "!" // Default prefix for the bot
     },
+    shardManager: {
+        shardStatus: true //If your bot exists on more than 1000 servers, change this part to true.
+    },
     INTERACTIONS: {
         SLASH: false, // Should the interactions be enabled
         CONTEXT: false, // Should contexts be enabled

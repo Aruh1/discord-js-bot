@@ -10,7 +10,7 @@
     },
     "scripts": {
         "dev": "nodemon .",
-        "start": "node .",
+        "start": "node index.js",
         "check": "prettier --check .",
         "format": "prettier --write .",
         "docker:build": "docker build -t saitejamadha/discord-js-bot:5.4.0 .",
