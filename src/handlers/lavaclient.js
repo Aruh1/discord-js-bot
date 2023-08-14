@@ -130,7 +130,7 @@ module.exports = client => {
             .setDescription(`[${song.title}](${song.uri})`)
             .setFooter({ text: `Requested By: ${song.requester}` });
 
-        if (song.sourceName === "youtube") {
+        if (song.sourceName === "youtube" || song.sourceName === "music.youtube") {
             const identifier = song.identifier;
             const thumbnail = `https://img.youtube.com/vi/${identifier}/hqdefault.jpg`;
             embed.setThumbnail(thumbnail);
