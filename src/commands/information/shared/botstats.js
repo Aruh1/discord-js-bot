@@ -72,13 +72,13 @@ module.exports = client => {
                 inline: true
             },
             {
-                name: "Node Js version",
+                name: "Node JS Version",
                 value: process.versions.node,
                 inline: false
             },
             {
                 name: "Uptime",
-                value: "```" + timeformat(process.uptime()) + "```",
+                value: `<t:${Math.floor(Number(Date.now() - client.uptime) / 1000)}:R>`,
                 inline: false
             }
         );
