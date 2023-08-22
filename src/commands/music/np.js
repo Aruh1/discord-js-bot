@@ -39,7 +39,7 @@ function nowPlaying({ client, guildId }) {
 
     const track = player.queue.current;
     const end = track.length > 6.048e8 ? "🔴 LIVE" : new Date(track.length).toISOString().slice(11, 19);
-    const identifier = track.identifier
+    const identifier = track.identifier;
     const thumbnail = `https://img.youtube.com/vi/${identifier}/hqdefault.jpg`;
 
     const embed = new EmbedBuilder()

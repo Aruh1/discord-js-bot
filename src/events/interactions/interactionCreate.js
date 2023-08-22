@@ -1,6 +1,6 @@
 const { getSettings } = require("@schemas/Guild");
 const { commandHandler, contextHandler, statsHandler, suggestionHandler, ticketHandler } = require("@src/handlers");
-const { InteractionType } = require("discord.js");
+const { InteractionType, EmbedBuilder } = require("discord.js");
 
 /**
  * @param {import('@src/structures').BotClient} client
