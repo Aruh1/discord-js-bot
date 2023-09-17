@@ -44,9 +44,10 @@ module.exports = client => {
             {
                 name: "CPU",
                 value: stripIndent`
-        ❯ **OS:** ${platform} [${architecture}]
+        ❯ **OS:** ${os.type} [${architecture}]
         ❯ **Cores:** ${cores}
         ❯ **Usage:** ${cpuUsage}
+        ❯ **Model:** ${os.devNull}
         `,
                 inline: true
             },
@@ -56,6 +57,7 @@ module.exports = client => {
         ❯ **Used:** ${botUsed}
         ❯ **Available:** ${botAvailable}
         ❯ **Usage:** ${botUsage}
+        ❯ **Temp:** ${os.tmpdir}
         `,
                 inline: true
             },
@@ -65,17 +67,18 @@ module.exports = client => {
         ❯ **Used:** ${overallUsed}
         ❯ **Available:** ${overallAvailable}
         ❯ **Usage:** ${overallUsage}
+        ❯ **Uptime:** ${os.uptime}
         `,
                 inline: true
             },
             {
-                name: "Node Js version",
+                name: "Node JS Version",
                 value: process.versions.node,
                 inline: false
             },
             {
                 name: "Uptime",
-                value: "```" + timeformat(process.uptime()) + "```",
+                value: `<t:${Math.floor(Number(Date.now() - client.uptime) / 1000)}:R>`,
                 inline: false
             }
         );

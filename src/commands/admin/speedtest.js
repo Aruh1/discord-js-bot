@@ -16,7 +16,7 @@ function createWaitingEmbed() {
 module.exports = {
     name: "speedtest",
     description: "Speed hosting bot",
-    category: "INFORMATION",
+    category: "ADMIN",
     command: {
         enabled: true
     },

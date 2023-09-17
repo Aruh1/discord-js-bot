@@ -15,6 +15,10 @@ function updatePresence(client) {
         message = message.replaceAll("{members}", members);
     }
 
+    if (message.includes("{pingws}")) {
+        message = message.replaceAll("{pingws}", client.ws.ping)
+    }
+
     const getType = type => {
         switch (type) {
             case "COMPETING":
@@ -28,6 +32,9 @@ function updatePresence(client) {
 
             case "WATCHING":
                 return ActivityType.Watching;
+
+            case "CUSTOM":
+                return ActivityType.Custom;
         }
     };
 
@@ -44,5 +51,5 @@ function updatePresence(client) {
 
 module.exports = function handlePresence(client) {
     updatePresence(client);
-    setInterval(() => updatePresence(client), 10 * 60 * 1000);
+    setInterval(() => updatePresence(client), 10 * 1000);
 };

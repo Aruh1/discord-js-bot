@@ -143,6 +143,8 @@ async function play({ member, guild, channel }, query) {
 
     if (tracks.length === 1) {
         const track = tracks[0];
+        const identifier = track.identifier;
+        const thumbnail = `https://img.youtube.com/vi/${identifier}/hqdefault.jpg`;
         if (!player?.playing && !player?.paused && !player?.queue.tracks.length) {
             embed.setAuthor({ name: "Added Track to queue" });
         } else {
@@ -150,6 +152,7 @@ async function play({ member, guild, channel }, query) {
             embed
                 .setAuthor({ name: "Added Track to queue" })
                 .setDescription(`[${track.info.title}](${track.info.uri})`)
+                .setThumbnail(thumbnail)
                 .setFooter({ text: `Requested By: ${member.user.username}` });
 
             fields.push({

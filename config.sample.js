@@ -7,6 +7,9 @@ module.exports = {
         ENABLED: true, // Enable/Disable prefix commands
         DEFAULT_PREFIX: "!" // Default prefix for the bot
     },
+    shardManager: {
+        shardStatus: true //If your bot exists on more than 1000 servers, change this part to true.
+    },
     INTERACTIONS: {
         SLASH: false, // Should the interactions be enabled
         CONTEXT: false, // Should contexts be enabled
@@ -107,7 +110,7 @@ module.exports = {
     PRESENCE: {
         ENABLED: false, // Whether or not the bot should update its status
         STATUS: "online", // The bot's status [online, idle, dnd, invisible]
-        TYPE: "WATCHING", // Status type for the bot [PLAYING | LISTENING | WATCHING | COMPETING]
+        TYPE: "WATCHING", // Status type for the bot [PLAYING | LISTENING | WATCHING | COMPETING | CUSTOM]
         MESSAGE: "{members} members in {servers} servers" // Your bot status message
     },
 
