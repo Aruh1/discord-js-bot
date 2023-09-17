@@ -111,6 +111,7 @@ module.exports = {
         ENABLED: false, // Whether or not the bot should update its status
         STATUS: "online", // The bot's status [online, idle, dnd, invisible]
         TYPE: "WATCHING", // Status type for the bot [PLAYING | LISTENING | WATCHING | COMPETING | CUSTOM]
+        TYPE_ONLINE: "Discord", // Status bot like online in mobiles
         MESSAGE: "{members} members in {servers} servers" // Your bot status message
     },
 
