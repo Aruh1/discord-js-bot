@@ -4,7 +4,7 @@
 
 ## Bugfixes
 
--         Revert "move `jquery` to `peerDependencies` from `dependencies`"
+-           Revert "move `jquery` to `peerDependencies` from `dependencies`"
 
 ## 1.7.0
 
