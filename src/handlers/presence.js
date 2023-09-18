@@ -16,7 +16,7 @@ function updatePresence(client) {
     }
 
     if (message.includes("{pingws}")) {
-        message = message.replaceAll("{pingws}", client.ws.ping)
+        message = message.replaceAll("{pingws}", client.ws.ping);
     }
 
     function convertMillisecondsToHoursMinutesSeconds(milliseconds) {
@@ -24,16 +24,16 @@ function updatePresence(client) {
         const hours = Math.floor(totalSeconds / 3600);
         const minutes = Math.floor((totalSeconds % 3600) / 60);
         const seconds = totalSeconds % 60;
-        
+
         return { hours, minutes, seconds };
     }
-    
+
     if (message.includes("{hsrtime}")) {
         const currentTimeStamp = Date.now();
         const targetTimeStamp = new Date("2023-09-20T04:00:00+08:00").getTime();
         const timeDifference = currentTimeStamp - targetTimeStamp;
         const { hours, minutes, seconds } = convertMillisecondsToHoursMinutesSeconds(timeDifference);
-        message = message.replaceAll("{hsrtime}", hours)
+        message = message.replaceAll("{hsrtime}", hours);
     }
 
     const getType = type => {
