@@ -2,14 +2,14 @@
     "name": "discord-js-bot",
     "version": "5.4.0",
     "description": "An open-source, multipurpose discord bot built using discord-js",
-    "main": "bot.js",
+    "main": "index.js",
     "author": "Sai Teja M",
     "license": "ISC",
     "engines": {
         "node": ">=18.x"
     },
     "scripts": {
-        "dev": "nodemon .",
+        "dev": "nodemon index.js",
         "start": "node index.js",
         "check": "prettier --check src/",
         "format": "prettier --write src/",
