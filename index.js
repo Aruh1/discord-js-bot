@@ -45,7 +45,7 @@ async function startBot() {
 }
 
 async function startLavalink() {
-    const [{ password, port }] = config.MUSIC.LAVALINK_NODES;
+    const { password, port } = config.MUSIC.LOCAL_LAVALINK;
     const env = { ...process.env, SERVER_PORT: `${port}`, LAVALINK_SERVER_PASSWORD: password };
 
     await new Promise(resolve =>
