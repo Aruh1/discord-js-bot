@@ -1,8 +1,22 @@
+# Operating System Files
 .DS_Store
+
+# Development Environment Files
 .vscode/
+
+# Dependencies and Modules
 node_modules/
-*.log
-*.tar.gz
-.env
 package-lock.json
+
+# Logs and Temporary Files
+*.log
+
+# Compressed and Archived Files
+*.tar.gz
+
+# Environment Configuration Files
+.env
 config.js
+
+# Application-Specific Files
+Lavalink.jar
