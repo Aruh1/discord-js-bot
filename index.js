@@ -2,7 +2,7 @@ require("module-alias/register");
 const fetch = require("node-fetch");
 const config = require("@root/config.js");
 const Logger = require("@helpers/Logger.js");
-const { execFile } = require("child_process");
+const { execFile, execFileSync } = require("child_process");
 const { createWriteStream, existsSync } = require("fs");
 
 let lavalinkProcess;
@@ -13,7 +13,8 @@ async function checkJavaVersion() {
             if (stderr.includes("openjdk version")) {
                 resolve();
             } else {
-                execFile("apt", ["install", "default-jdk"]);
+                execFileSync("apt", ["install", "default-jdk"]);
+                main();
             }
         });
     });
@@ -100,12 +101,16 @@ async function checkLavalinkRelease() {
 
 async function main() {
     try {
-        await checkJavaVersion();
-
-        if (existsSync("Lavalink.jar")) {
-            await startLavalink();
+        if (config.MUSIC.USE_LOCAL_LAVALINK) {
+            await checkJavaVersion();
+    
+            if (existsSync("Lavalink.jar")) {
+                await startLavalink();
+            } else {
+                await checkLavalinkRelease();
+            }
         } else {
-            await checkLavalinkRelease();
+            startBot();
         }
     } catch (error) {
         console.error("Error main:", error);
