@@ -6,7 +6,7 @@
     "author": "Sai Teja M",
     "license": "ISC",
     "engines": {
-        "node": ">=18.x"
+        "node": ">=20.x"
     },
     "scripts": {
         "dev": "nodemon index.js",
@@ -46,11 +46,11 @@
         "lavaclient": "^4.1.1",
         "module-alias": "^2.2.3",
         "moment": "^2.29.4",
-        "mongoose": "^7.6.2",
+        "mongoose": "^7.6.3",
         "nekos.life": "^3.0.0",
         "node-fetch": "^2.6.12",
         "os": "^0.1.2",
-        "pino": "^8.16.0",
+        "pino": "^8.16.1",
         "pino-pretty": "^10.2.3",
         "pretty-ms": "^7.0.1",
         "snakecord": "^1.0.9",
@@ -69,7 +69,7 @@
         "zlib-sync": "^0.1.8"
     },
     "devDependencies": {
-        "eslint": "^8.51.0",
+        "eslint": "^8.52.0",
         "eslint-plugin-jsdoc": "^46.8.2",
         "nodemon": "^3.0.1",
         "prettier": "^3.0.3"
