@@ -13,7 +13,7 @@ async function checkJavaVersion() {
             if (stderr.includes("openjdk version 17")) {
                 resolve();
             } else {
-                execFileSync("apt", ["install", "openjdk-17"]);
+                execFileSync("sudo", ["apt", "install", "openjdk-17"]);
                 main();
             }
         });
