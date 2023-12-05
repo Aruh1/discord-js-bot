@@ -10,10 +10,10 @@ let lavalinkProcess;
 async function checkJavaVersion() {
     return new Promise((resolve, reject) => {
         execFile("java", ["-version"], (_error, _stdout, stderr) => {
-            if (stderr.includes("openjdk version")) {
+            if (stderr.includes("openjdk version 17")) {
                 resolve();
             } else {
-                execFileSync("apt", ["install", "default-jdk"]);
+                execFileSync("apt", ["install", "openjdk-17"]);
                 main();
             }
         });
